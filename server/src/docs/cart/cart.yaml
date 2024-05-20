@@ -1,0 +1,224 @@
+paths:
+  # /api/carts:
+  #   get:
+  #     summary: Get all products in the cart
+  #     tags:
+  #       - Cart
+  #     responses:
+  #       '200':
+  #         description: Products found
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#components/schemas/Cart'
+  #       '500':
+  #         description: An error occurred while fetching products
+  #   post:
+  #     summary: Add a new product to the cart
+  #     tags:
+  #       - Cart
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#components/schemas/Cart'
+  #     responses:
+  #       '200':
+  #         description: Product added
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#components/schemas/Cart'
+  #       '500':
+  #         description: An error occurred while adding the product
+  /api/carts/{cId}:
+    get:
+      summary: Get a cart by id
+      tags:
+        - Cart
+      parameters:
+        - name: cId
+          in: path
+          required: true
+          description: The cart's id
+          schema:
+            type: ObjectId
+      responses:
+        '200':
+          description: Cart found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while fetching a cart
+      delete:
+        summary: Empty a cart
+        tags:
+          - Cart
+        parameters:
+          - name: cId
+            in: path
+            required: true
+            description: The cart's id
+            schema:
+              type: ObjectId
+        responses:
+          '200':
+            description: Cart emptied
+            content:
+              application/json:
+                schema:
+                  $ref: '#components/schemas/Cart'
+          '500':
+            description: An error occurred while emptying the cart
+  /api/carts/user/{userId}:
+    get:
+      summary: Get cart rekated to a user
+      tags:
+        - Cart
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The user's id
+          schema:
+            type: ObjectId
+      responses:
+        '200':
+          description: Products found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while fetching a user cart
+  /api/carts/{cId}/purchase:
+    post:
+      summary: Purchase the products in the cart
+      tags:
+        - Cart
+      parameters:
+        - name: cId
+          in: path
+          required: true
+          description: The cart's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cart {cId} purchased by {purchaser}
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while purchasing the products
+  /api/carts/{cId}/product/{pId}:
+    post:
+      summary: Add a product to the cart
+      tags:
+        - Cart
+      parameters:
+        - name: cId
+          in: path
+          required: true
+          description: The cart's id
+          schema:
+            type: string
+        - name: pId
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product added
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while adding the product
+    put:
+      summary: Update a product in the cart
+      tags:
+        - Cart
+      parameters:
+        - name: cId
+          in: path
+          required: true
+          description: The cart's id
+          schema:
+            type: string
+        - name: pId
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while updating the product
+    delete:
+      summary: Remove a product from the cart
+      tags:
+        - Cart
+      parameters:
+        - name: cId
+          in: path
+          required: true
+          description: The cart's id
+          schema:
+            type: string
+        - name: pId
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product removed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Cart'
+        '500':
+          description: An error occurred while removing the product
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        user:
+          type: string
+          description: The user's id
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: The product's id
+              quantity:
+                type: number
+                default: 1
+          description: List of products in the cart
+      required:
+        - user
+        - products

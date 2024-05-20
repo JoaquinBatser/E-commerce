@@ -1,0 +1,35 @@
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  padding-inline: 24px;
+}
+
+.product-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.product-details {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.product-details div p {
+  opacity: 0.5;
+  font-size: small;
+}
+
+.prod-price {
+  font-weight: 600;
+}
+.prod-stock {
+  font-size: small;
+}

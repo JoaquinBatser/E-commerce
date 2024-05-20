@@ -1,0 +1,27 @@
+<h1 class='title'>Chat</h1>
+
+<div id='chat' class='chat-container'>
+
+  <div id='messages-list' class='message-list'>
+    {{#each messages}}
+      <div class='message-box'>
+        <small class='message-user'>{{this.user}}</small>
+        <div class='message-text'>{{this.message}}</div>
+        <small class='message-time'>{{this.createdAt}}</small>
+      </div>
+    {{/each}}
+  </div>
+
+  <form id='message-form' class='message-form'>
+    <input type='text' id='message-input' class='message-input' autocomplete='off' />
+    <button type='button' id='send-message-button' class='send-message-button'>Send</button>
+  </form>
+
+</div>
+
+<script
+  src='https://cdn.socket.io/4.7.4/socket.io.min.js'
+  integrity='sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4'
+  crossorigin='anonymous'
+></script>
+<script type='text/javascript' src='/js/chat.js'></script>

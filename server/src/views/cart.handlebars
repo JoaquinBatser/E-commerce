@@ -1,0 +1,24 @@
+<h1>Cart</h1>
+
+<ul class='products-list'>
+  {{#each products}}
+    <li class='product-container'>
+      {{!-- <small id='{{this.product._id}}'>{{this._id}}</small> --}}
+      {{!-- <div class='product-image'><img
+          src='https://via.assets.so/img.jpg?w=200&h=200&tc=white&bg=black&t=img'
+          alt={{this.product.title}}
+        /></div> --}}
+      <div class='product-details'>
+        <div>
+          <h3>{{this.product.title}}</h3>
+          <p>{{this.product.category}}</p>
+        </div>
+        <p>{{this.product.description}}</p>
+        <p>${{this.product.price}}</p>
+        {{!-- <p>{{this.product.stock}}</p> --}}
+        {{!-- <p>{{this.product.code}}</p> --}}
+      </div>
+    </li>
+  {{/each}}
+
+</ul>

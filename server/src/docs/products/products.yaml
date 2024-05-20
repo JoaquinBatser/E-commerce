@@ -1,0 +1,156 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Products found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
+        '500':
+          description: An error occurred while fetching products
+    post:
+      summary: Add a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Product'
+      responses:
+        '200':
+          description: Product added
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Product'
+        '500':
+          description: An error occurred while adding the product
+  /api/products/{id}:
+    get:
+      summary: Get a product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Product'
+        '500':
+          description: An error occurred while fetching a product
+    put:
+      summary: Update a product
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Product'
+        '500':
+          description: An error occurred while updating the product
+    delete:
+      summary: Delete a product
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The product's id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Product'
+        '500':
+          description: An error occurred while deleting the product
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: The product's id
+        title:
+          type: string
+          description: The product's title
+        description:
+          type: string
+          description: The product's description
+        price:
+          type: number
+          description: The product's price
+        category:
+          type: string
+          description: The product's category
+        thumbnail:
+          type: string
+          description: The product's thumbnail
+        code:
+          type: string
+          description: The product's code
+        stock:
+          type: number
+          description: The product's stock
+        owner:
+          type: string
+          description: The product's owner
+
+      example:
+        _id: ObjectId("6abcd1345qxsadfd91as0")
+        title: 'Electric Guitar'
+        description: 'A beautiful electric guitar'
+        price: 2000
+        category: 'Music'
+        thumbnail: ' https://www.google.com/image.jpg'
+        code: 'GUITAR-123'
+        stock: 24
+        owner: '2xdbb1465qxoplfd00lp0'
+      required:
+        - title
+        - description
+        - price
+        - category
+        - thumbnail
+        - code
+        - stock
+        - owner

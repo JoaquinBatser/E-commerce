@@ -1,0 +1,22 @@
+<div class='login-container'>
+  <form id='login-form' class='login-form'>
+    <h2>Iniciar sesión</h2>
+    <div class='form-group'>
+
+      <label for='email'>email:</label>
+      <input type='text' id='email' name='email' required />
+    </div>
+    <div class='form-group'>
+
+      <label for='password'>password:</label>
+      <input type='password' id='password' name='password' required />
+
+    </div>
+    <button id='login' type='submit'>Ingresar</button>
+  </form>
+
+  <a href='/api/sessions/github'>
+    <button>Login with Github</button>
+  </a>
+</div>
+<script type='text/javascript' src='/js/login.js'></script>

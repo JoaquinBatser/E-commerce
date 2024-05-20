@@ -1,0 +1,72 @@
+.user {
+  display: flex;
+  padding-inline: 24px;
+}
+
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  padding-inline: 24px;
+}
+
+.product-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+.product-details {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.product-details div p {
+  opacity: 0.5;
+  font-size: small;
+}
+
+.prod-price {
+  font-weight: 600;
+}
+.prod-stock {
+  font-size: small;
+}
+
+.add-to-cart-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  transition: 0.3s ease-in-out;
+}
+
+.add-to-cart-button:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(36, 124, 255) 0px 0px 0px 1px inset;
+}
+
+.pagination-button-disabled:hover {
+  cursor: not-allowed;
+}
+
+.pagination button {
+  padding: 4px 6px;
+}
+
+.pagination button {
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+  margin-right: 24px;
+}

@@ -1,0 +1,63 @@
+{{#if user}}
+  <div class='user'>
+    <h1>{{user}} ({{role}})</h1>
+    <button id='logout-btn'>Logout</button>
+  </div>
+{{/if}}
+
+<div class='pagination'>
+  {{#if hasPrevPage}}
+    <a href='/products?page={{prevPage}}'>
+      <button>
+        <i class='fa-solid fa-arrow-left-long'></i>
+      </button>
+    </a>
+
+  {{else}}
+    <button class='pagination-button-disabled'>
+      <i class='fa-solid fa-slash'></i>
+    </button>
+  {{/if}}
+
+  <div class='page'>
+    {{currentPage}}
+  </div>
+
+  {{#if hasNextPage}}
+    <a href='/products?page={{nextPage}}'>
+      <button>
+        <i class='fa-solid fa-arrow-right-long'></i>
+      </button>
+    </a>
+
+  {{else}}
+    <button class='pagination-button-disabled'>
+      <i class='fa-solid fa-slash'></i>
+    </button>
+
+  {{/if}}
+</div>
+
+<div class='products-list'>
+  {{#each products}}
+    <div class='product-container'>
+      {{!-- <div class='product-image'><img src='' alt={{this.title}} /></div> --}}
+      <div class='product-details'>
+        <small id='{{this.id}}'>--></small>
+        <div>
+          <h3>{{this.title}}</h3>
+          <p>{{this.category}}</p>
+        </div>
+        <p class='prod-desc'>{{this.description}}</p>
+        <p class='prod-price'>${{this.price}}</p>
+        <p class='prod-stock'>{{this.stock}}</p>
+        {{!-- <p>{{this.code}}</p> --}}
+      </div>
+      <button type='button' class='add-to-cart-button' id='add-to-cart-btn'>
+        <i class='fa-solid fa-plus'></i>
+      </button>
+    </div>
+  {{/each}}
+</div>
+
+<script type='text/javascript' src='/js/products.js'></script>
