@@ -81,7 +81,8 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    const id = req.session.passport.user
+    console.log('logout')
+    const id = req.session.passport
     console.log(id)
 
     await usersManager.lastConnection(id)

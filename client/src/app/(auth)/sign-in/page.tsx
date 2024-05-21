@@ -13,10 +13,11 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
-import UserContext from '@/context/UserContext'
+import { UserContext } from '@/context/UserProvider'
 
 const Page = () => {
   const router = useRouter()
+  const { user, setUser } = useContext(UserContext)
 
   const AuthCredentialsValidator = z.object({
     email: z.string().email(),
@@ -48,10 +49,11 @@ const Page = () => {
       if (response.ok) {
         let json = await response.json()
         console.log(json.user)
+        setUser(json.user)
         localStorage.setItem('user', JSON.stringify(json.user))
         toast.success('Logged in successfully')
-        // router.refresh()
-        // router.push('/')
+        router.refresh()
+        router.push('/')
       } else {
         toast.error('An error occurred')
       }

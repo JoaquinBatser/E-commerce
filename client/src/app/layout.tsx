@@ -4,7 +4,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import { Toaster } from 'sonner'
-import UserProvider from '@/context/UserProvider'
+import { UserProvider } from '@/context/UserProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 

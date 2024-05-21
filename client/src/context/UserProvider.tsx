@@ -1,14 +1,24 @@
 'use client'
+import React, { ReactNode, createContext, useEffect, useState } from 'react'
+import { User } from '@/payload-types'
 
-import React, { useState, useEffect, ReactNode } from 'react'
-import UserContext from './UserContext'
-
-interface UserProviderProps {
+type UserProviderProps = {
   children: ReactNode
 }
 
-const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<{ id: string; name: string } | null>(null)
+const typeUserContextState = {
+  user: null,
+  setUser: () => {},
+}
+interface UserContextType {
+  user: User | null
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
+}
+
+export const UserContext = createContext<UserContextType>(typeUserContextState)
+
+export const UserProvider = (props: UserProviderProps) => {
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
@@ -24,9 +34,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {children}
+      {props.children}
     </UserContext.Provider>
   )
 }
-
-export default UserProvider

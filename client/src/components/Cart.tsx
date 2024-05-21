@@ -13,6 +13,8 @@ import { Separator } from './ui/separator'
 import { formatPrice } from '@/lib/utils'
 import { buttonVariants } from './ui/button'
 import Link from 'next/link'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '@/context/UserProvider'
 
 const Cart = () => {
   const fee = 1

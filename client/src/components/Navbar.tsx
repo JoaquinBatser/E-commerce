@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import MaxWidthWrapper from './MaxWidthWrapper'
 import { Icons } from './Icons'
@@ -6,10 +8,12 @@ import Cart from './Cart'
 import { cookies } from 'next/headers'
 import { getServerSideUser } from '@/lib/payload-utils'
 import UserAccountNav from './UserAccountNav'
+import { useContext } from 'react'
+import { UserContext } from '@/context/UserProvider'
 
-const Navbar = async () => {
-  const nextCookies = cookies()
-  const user = true
+const Navbar = () => {
+  const { user, setUser } = useContext(UserContext)
+
   return (
     <div className="bg-white sticky z-50 top-0 inset-x-0 h-16">
       <header className="relative bg-white">
@@ -42,13 +46,12 @@ const Navbar = async () => {
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                   )}
                   {user ? (
-                    <UserAccountNav />
+                    <UserAccountNav user={user} />
                   ) : (
                     <Link
                       href="/sign-up"
                       className={buttonVariants({ variant: 'ghost' })}
                     >
-                      {' '}
                       Create account
                     </Link>
                   )}
