@@ -27,7 +27,6 @@ const Page = ({ params }: PageProps) => {
       fetch(`http://localhost:8000/api/products/${params.productId}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
           setProduct(data.productData.product)
         })
       setVisible(true)
@@ -105,7 +104,7 @@ const Page = ({ params }: PageProps) => {
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <div>
               <div className="mt-10">
-                <AddToCartButton />
+                <AddToCartButton product={product} />
               </div>
               <div className="mt-6 text-center">
                 <div className="group inline-flex text-sm text-medium">

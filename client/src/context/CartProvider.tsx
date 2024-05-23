@@ -1,56 +1,98 @@
+'use client'
 import { Cart } from '@/payload-types'
-import { createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
+import { UserContext } from './UserProvider'
+import { useContext } from 'react'
 
 interface CartProviderProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
-interface CartContextProps {
+const typeCartContextState = {
+  cart: null,
+  addToCart: () => {},
+  removeFromCart: () => {},
+}
+interface CartContextType {
   cart: Cart | null
-  addToCart: (productId: string) => Promise<void>
-  removeFromCart: (productId: string) => Promise<void>
+  addToCart: (productId: string) => void
+  removeFromCart: (productId: string) => void
 }
 
-const CartContext = createContext<CartContextProps | undefined>(undefined)
+export const CartContext = createContext<CartContextType>(typeCartContextState)
 
-const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+export const CartProvider = (props: CartProviderProps) => {
+  const { user } = useContext(UserContext)
   const [cart, setCart] = useState<Cart | null>(null)
 
-  const addToCart = async (productId: string) => {
-    const response = await fetch(
-      `http://localhost:8000/api/cart/${productId}`,
-      {
-        method: 'POST',
-        // Add any necessary headers or body data here...
+  useEffect(() => {
+    if (!user) {
+      setCart({
+        _id: '',
+        user: '',
+        products: [],
+        createdAt: '',
+        updatedAt: '',
+        __v: 0,
+      })
+    } else {
+      const fetchCart = async () => {
+        const response = await fetch(
+          `http://localhost:8000/api/carts/user/${user._id}`
+        )
+        console.log(response)
+        if (response.ok) {
+          const data = await response.json()
+          setCart(data.cartData.cart)
+        }
       }
-    )
 
-    if (response.ok) {
-      const updatedCart = await response.json()
-      setCart(updatedCart)
+      fetchCart()
+    }
+  }, [user])
+
+  const addToCart = async (productId: string) => {
+    if (cart) {
+      console.log('Adding to cart', productId)
+      console.log('Cart', cart)
+      const response = await fetch(
+        `http://localhost:8000/api/carts/${cart._id}/product/${productId}'`,
+        {
+          method: 'POST',
+        }
+      )
+
+      if (response.ok) {
+        const updatedCart = await response.json()
+        console.log('Updated cart', updatedCart)
+        setCart(updatedCart)
+      }
+    } else {
+      console.error('No cart found')
     }
   }
 
   const removeFromCart = async (productId: string) => {
-    const response = await fetch(
-      `http://localhost:8000/api/cart/${productId}`,
-      {
-        method: 'DELETE',
-        // Add any necessary headers or body data here...
-      }
-    )
+    if (cart) {
+      const response = await fetch(
+        `http://localhost:8000/api/cart/${productId}`,
+        {
+          method: 'DELETE',
+        }
+      )
 
-    if (response.ok) {
-      const updatedCart = await response.json()
-      setCart(updatedCart)
+      if (response.ok) {
+        const updatedCart = await response.json()
+        setCart(updatedCart)
+      }
+    } else {
+      console.error('No cart found')
     }
   }
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
-      {children}
+      {props.children}
     </CartContext.Provider>
   )
 }
-
-export { CartContext, CartProvider }

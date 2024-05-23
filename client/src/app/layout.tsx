@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import Navbar from '@/components/Navbar'
 import { Toaster } from 'sonner'
 import { UserProvider } from '@/context/UserProvider'
+import { CartProvider } from '@/context/CartProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,20 +21,22 @@ export default function RootLayout({
 }>) {
   return (
     <UserProvider>
-      <html lang="en" className="h-full">
-        <body
-          className={cn(
-            'relative h-full font-sans antialiased',
-            inter.className
-          )}
-        >
-          <main className="relative flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex-grow flex-1">{children}</div>
-          </main>
-          <Toaster position="top-center" richColors />
-        </body>
-      </html>
+      <CartProvider>
+        <html lang="en" className="h-full">
+          <body
+            className={cn(
+              'relative h-full font-sans antialiased',
+              inter.className
+            )}
+          >
+            <main className="relative flex flex-col min-h-screen">
+              <Navbar />
+              <div className="flex-grow flex-1">{children}</div>
+            </main>
+            <Toaster position="top-center" richColors />
+          </body>
+        </html>
+      </CartProvider>
     </UserProvider>
   )
 }

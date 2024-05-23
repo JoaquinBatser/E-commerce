@@ -73,7 +73,8 @@ const addProductToCart = async (req, res, next) => {
   try {
     console.log('aca')
     console.log(req.session)
-    console.log(req.user.user.role)
+    console.log(req.session.passport.user)
+    console.log(req.user)
     if (req.user.user.role == 'premium') {
       const productData1 = await productsManager.getProductById(pId)
 

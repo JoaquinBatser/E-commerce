@@ -55,6 +55,7 @@ const signup = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const id = req.session.passport.user
+    console.log('loginid', id)
     await usersManager.lastConnection(id)
     const userData = await usersManager.getUserById(id)
     const { password, ...data } = userData.user

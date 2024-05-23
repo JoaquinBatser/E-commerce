@@ -15,6 +15,8 @@ import { buttonVariants } from './ui/button'
 import Link from 'next/link'
 import { useContext, useEffect } from 'react'
 import { UserContext } from '@/context/UserProvider'
+import { ScrollArea } from './ui/scroll-area'
+import CartItem from './CartItem'
 
 const Cart = () => {
   const fee = 1
@@ -36,7 +38,11 @@ const Cart = () => {
         </SheetHeader>
         {itemCount > 0 ? (
           <>
-            <div className="flex w-full flex-col pr-6">Cart items</div>
+            <div className="flex w-full flex-col pr-6">
+              <ScrollArea>
+                <CartItem />
+              </ScrollArea>
+            </div>
             <div className="space-y-4 pr-6">
               <Separator />
               <div className="space-y-1.5 text-sm">
