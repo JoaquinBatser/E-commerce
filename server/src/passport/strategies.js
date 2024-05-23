@@ -1,15 +1,12 @@
-import UsersManager from '../services/db/users.service.db.js'
+import usersManager from '../services/db/users.service.db.js'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { loginValidator } from '../validation/loginValidator.js'
-import { signupValidator } from '../validation/signupValidator.js'
-import UsersRepository from '../repositories/users.repository.js'
-import { userModel } from '../models/user.model.js'
+
 import repositories from '../repositories/index.js'
 
 // const usersRepository = new UsersRepository(userModel)
 // const userManager = new UsersManager(usersRepository)
-const userManager = new UsersManager(repositories.users)
+const userManager = new usersManager(repositories.users)
 
 // Cambio: creamos funcion y se ejecuta en app.js
 const initializePassport = () => {
@@ -36,11 +33,9 @@ const initializePassport = () => {
   const login = async (req, email, password, done) => {
     try {
       const user = { email, password }
-      console.log('asdasdfadsf')
+
       const userManagerResponse = await userManager.loginUser(user)
-      if (userManagerResponse.success) {
-        req.session.userId = userManagerResponse.foundUser._id // Add the user ID to the session
-      }
+      console.log('asdasdfadsf', userManagerResponse)
 
       return done(null, userManagerResponse.foundUser, {
         message: userManagerResponse.message,
@@ -57,6 +52,19 @@ const initializePassport = () => {
 
   passport.use('signup', signupStrategy)
   passport.use('login', loginStrategy)
+
+  passport.serializeUser((user, done) => {
+    console.log('serializeUser', user)
+    done(null, user._id)
+  })
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await userManager.getUserById(id)
+      done(null, user)
+    } catch (error) {
+      console.log(error)
+    }
+  })
 }
 
 export default initializePassport

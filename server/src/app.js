@@ -6,7 +6,7 @@ import { Server } from 'socket.io'
 import cookieParser from 'cookie-parser'
 import MongoStore from 'connect-mongo'
 import session from 'express-session'
-import './passport/strategies.js'
+// import './passport/strategies.js'
 import initializeGHPassport from './config/passport.config.js' // Cambio: nombre import
 import initializePassport from './passport/strategies.js' // Cambio: nuevo import
 import swaggerJsdoc from 'swagger-jsdoc'
@@ -83,7 +83,7 @@ app.use(
   })
 )
 
-initializeGHPassport()
+// initializeGHPassport()
 initializePassport()
 
 app.use(passport.initialize())

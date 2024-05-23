@@ -136,7 +136,7 @@ export default class UsersManager {
     try {
       console.log(uId)
       const user = await this.repo.lastConnection(uId)
-      console.log('alstcone', user)
+
       return user
         ? { success: true, message: 'Last connection updated', user }
         : { success: false, message: 'Could not update last connection' }
