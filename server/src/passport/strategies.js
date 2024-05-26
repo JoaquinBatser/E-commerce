@@ -20,6 +20,7 @@ const initializePassport = () => {
     try {
       const userManagerResponse = await userManager.addUser(req.body)
 
+      console.log('signup', userManagerResponse)
       return done(null, userManagerResponse.user, {
         message: userManagerResponse.message,
         success: userManagerResponse.success,
@@ -60,6 +61,7 @@ const initializePassport = () => {
   passport.deserializeUser(async (id, done) => {
     try {
       const user = await userManager.getUserById(id)
+      console.log('deserializeUser', user)
       done(null, user)
     } catch (error) {
       console.log(error)

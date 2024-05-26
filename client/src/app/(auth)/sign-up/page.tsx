@@ -43,6 +43,8 @@ const Page = () => {
         }
       )
 
+      console.log(response)
+
       if (response.ok) {
         toast.success('Account created successfully')
       } else {

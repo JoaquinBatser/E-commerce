@@ -41,7 +41,7 @@ export default class UsersManager {
       return {
         success: repoResponse.success,
         message: repoResponse.message,
-        user: repoResponse.newUser,
+        user: repoResponse.user,
       }
     } catch (error) {
       if (

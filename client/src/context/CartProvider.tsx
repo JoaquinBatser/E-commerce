@@ -56,7 +56,7 @@ export const CartProvider = (props: CartProviderProps) => {
       console.log('Adding to cart', productId)
       console.log('Cart', cart)
       const response = await fetch(
-        `http://localhost:8000/api/carts/${cart._id}/product/${productId}'`,
+        `http://localhost:8000/api/carts/${cart._id}/product/${productId}`,
         {
           method: 'POST',
         }
